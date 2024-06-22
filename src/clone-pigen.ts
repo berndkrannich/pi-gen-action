@@ -20,9 +20,11 @@ export async function clonePigen(
         owner: owner,
         repo: repoName
       })
-  
-      if (!repoInfo.data.fork ||
-        repoInfo.data.source?.full_name !== originalPiGenRepo) {
+
+      if (
+        !repoInfo.data.fork ||
+        repoInfo.data.source?.full_name !== originalPiGenRepo
+      ) {
         throw new Error(`${repo} is not a fork from ${originalPiGenRepo}`)
       }
     }
