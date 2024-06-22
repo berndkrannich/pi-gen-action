@@ -64,6 +64,7 @@ export class Git {
 
     await this.execGit(['init', this.repoPath])
     await this.execGit(['config', '--local', 'gc.auto', '0'])
+    await this.execGit(['config', '--global', 'credential.https://github.com.username', 'git'])
 
     if (token) {
       await this.execGit([
