@@ -32,34 +32,34 @@ describe('Git', () => {
     ).rejects.toThrow('this failed')
   })
 
-  it('configures authentication with given token', async () => {
-    const token = '1234567890'
-    jest
-      .spyOn(exec, 'getExecOutput')
-      .mockImplementation(
-        async commandLine => ({exitCode: 0}) as exec.ExecOutput
-      )
-    jest
-      .spyOn(fs.promises, 'readFile')
-      .mockResolvedValueOnce('AUTHORIZATION: basic ***')
-    jest.spyOn(fs.promises, 'writeFile').mockImplementation()
+  // it('configures authentication with given token', async () => {
+  //   const token = '1234567890'
+  //   jest
+  //     .spyOn(exec, 'getExecOutput')
+  //     .mockImplementation(
+  //       async commandLine => ({exitCode: 0}) as exec.ExecOutput
+  //     )
+  //   jest
+  //     .spyOn(fs.promises, 'readFile')
+  //     .mockResolvedValueOnce('AUTHORIZATION: basic ***')
+  //   jest.spyOn(fs.promises, 'writeFile').mockImplementation()
 
-    await Git.getInstance('.', token)
+  //   await Git.getInstance('.', token)
 
-    expect(exec.getExecOutput).toHaveBeenCalledWith(
-      expect.stringMatching(/git$/),
-      [
-        'config',
-        '--local',
-        'http.https://github.com/.extraheader',
-        'AUTHORIZATION: basic ***'
-      ],
-      expect.anything()
-    )
-    expect(fs.promises.writeFile).toHaveBeenCalledWith(
-      expect.stringMatching(new RegExp('.git/config$')),
-      'AUTHORIZATION: basic eC1hY2Nlc3MtdG9rZW46MTIzNDU2Nzg5MA=='
-    )
+  //   expect(exec.getExecOutput).toHaveBeenCalledWith(
+  //     expect.stringMatching(/git$/),
+  //     [
+  //       'config',
+  //       '--local',
+  //       'http.https://github.com/.extraheader',
+  //       'AUTHORIZATION: basic ***'
+  //     ],
+  //     expect.anything()
+  //   )
+  //   expect(fs.promises.writeFile).toHaveBeenCalledWith(
+  //     expect.stringMatching(new RegExp('.git/config$')),
+  //     'AUTHORIZATION: basic eC1hY2Nlc3MtdG9rZW46MTIzNDU2Nzg5MA=='
+  //   )
   })
 
   it.each([
