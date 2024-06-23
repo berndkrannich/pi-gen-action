@@ -64,33 +64,33 @@ export class Git {
 
     await this.execGit(['init', this.repoPath])
     await this.execGit(['config', '--local', 'gc.auto', '0'])
-    await this.execGit([
-      'config',
-      '--global',
-      'credential.https://github.com.username',
-      'git'
-    ])
+    // await this.execGit([
+    //   'config',
+    //   '--global',
+    //   'credential.https://github.com.username',
+    //   'git'
+    // ])
 
-    if (token) {
-      await this.execGit([
-        'config',
-        '--local',
-        `http.https://github.com/.extraheader`,
-        'AUTHORIZATION: basic ***'
-      ])
+    // if (token) {
+    //   await this.execGit([
+    //     'config',
+    //     '--local',
+    //     `http.https://github.com/.extraheader`,
+    //     'AUTHORIZATION: basic ***'
+    //   ])
 
-      const basicCredential = Buffer.from(
-        `x-access-token:${token}`,
-        'utf8'
-      ).toString('base64')
-      const configPath = path.join(this.repoPath, '.git', 'config')
-      let content = (await fs.promises.readFile(configPath)).toString()
-      content = content.replace(
-        'AUTHORIZATION: basic ***',
-        `AUTHORIZATION: basic ${basicCredential}`
-      )
-      await fs.promises.writeFile(configPath, content)
-    }
+    //   const basicCredential = Buffer.from(
+    //     `x-access-token:${token}`,
+    //     'utf8'
+    //   ).toString('base64')
+    //   const configPath = path.join(this.repoPath, '.git', 'config')
+    //   let content = (await fs.promises.readFile(configPath)).toString()
+    //   content = content.replace(
+    //     'AUTHORIZATION: basic ***',
+    //     `AUTHORIZATION: basic ${basicCredential}`
+    //   )
+    //   await fs.promises.writeFile(configPath, content)
+    // }
   }
 
   private async execGit(args: string[]): Promise<exec.ExecOutput> {
