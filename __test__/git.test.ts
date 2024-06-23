@@ -60,7 +60,7 @@ describe('Git', () => {
   //     expect.stringMatching(new RegExp('.git/config$')),
   //     'AUTHORIZATION: basic eC1hY2Nlc3MtdG9rZW46MTIzNDU2Nzg5MA=='
   //   )
-  })
+  //})
 
   it.each([
     ['v1', true],
